@@ -4,51 +4,52 @@
 //
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-let len = alphabet.length;
+const randomKeyBaseLength = alphabet.length;
+const lowerCaseLetters = /^[a-z]+$/;
+const [encode, decode] = [Symbol(), Symbol()];
+
+const isValidKey = (key) => {
+	if (!lowerCaseLetters.test(key)) {
+	  throw new Error('Bad key');
+	}
+}
 
 export class Cipher {
 	constructor(key) {
-		if(key){
-			this.key = key;
-		}else{
-			this.key = this.randomKeyGenerator();
-		}
-
-		const lowerCaseLetters = /^[a-z]+$/;
-		if (!lowerCaseLetters.test(this.key)) {
-		  throw new Error('Bad key');
-		}
+		this.key = key ? key : this.randomKeyGenerator();
+		isValidKey(this.key);
 	}
-  
+	
 	keyIndex(letter){
 		return alphabet.indexOf(letter);
 	}
 
 	randomKeyGenerator() {
-		return Array.from({ length: 100 }, () => alphabet.charAt(Math.floor(Math.random() * len))).join('');
+		return Array.from({ length: 100 }, () => alphabet.charAt(Math.floor(Math.random() * randomKeyBaseLength))).join('');
 	}
 
-	encode(plaintext) {
+	cipherMethod(plaintext, method){
 		const array = plaintext.split('');
 		const newArray = array.map((char, index) => {
-			const x = alphabet.indexOf(char) + this.keyIndex(this.key[index % this.key.length]);
+			const charIndex = alphabet.indexOf(char);
+			const keyInd = this.keyIndex(this.key[index % this.key.length]);
 			
-			return alphabet.charAt((x + len)%len);
+			const x = method === encode ? 
+								(charIndex + keyInd) 
+								: (charIndex - keyInd);
+			
+			return alphabet.charAt((x + randomKeyBaseLength)%randomKeyBaseLength);
 		}); 
 
 		return newArray.join('');
 	}
-  
-	decode(encodedText) {
-		const array = encodedText.split('');
-		const newArray = array.map((char, index) => {
-			const x = alphabet.indexOf(char) - this.keyIndex(this.key[index % this.key.length]);
-			
-			return alphabet.charAt((x + len)%len);
-		});
 
-		return newArray.join('');
+	encode(plaintext) {
+		return this.cipherMethod(plaintext, encode);
 	}
   
+	decode(encodedText) {
+		return this.cipherMethod(encodedText, decode);
+	}
 }
 		
