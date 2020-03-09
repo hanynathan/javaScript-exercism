@@ -8,3 +8,4 @@ My javascript exercism solutions
 - simple cipher
 - zipper
 - Minesweeper
+- resistor color
