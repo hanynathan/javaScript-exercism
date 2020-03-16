@@ -9,3 +9,4 @@ My javascript exercism solutions
 - zipper
 - Minesweeper
 - resistor color
+- gigasecond
