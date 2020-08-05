@@ -4,5 +4,24 @@
 //
 
 export const hey = (message) => {
-  throw new Error("Remove this statement and implement this function");
+	const yellLetters = /[a-zA-Z]/g;
+	let result = 'Whatever.';
+	const newMessage = message.trim();
+
+	const sayNothing = newMessage.length;
+	const isQuestion = newMessage.endsWith('?');
+	const upper = newMessage === newMessage.toUpperCase();
+	const isYellTalks = newMessage.match(yellLetters);
+
+	if(sayNothing === 0){
+		result = 'Fine. Be that way!';
+	}else if(isQuestion && upper && isYellTalks){
+		result = 'Calm down, I know what I\'m doing!';
+	}else if(isQuestion){
+		result = 'Sure.';
+	}else if (upper && isYellTalks){
+		result = 'Whoa, chill out!';
+	}
+
+	return result;
 };
