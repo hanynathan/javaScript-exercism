@@ -13,18 +13,18 @@ const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 const validLetters = /^[A-Za-z1-9_."]+$/;
 
 export const isPangram_1 = (input) => {
-  // return [...'abcdefghijklmnopqrstuvwxyz'].every(char => input.toLowerCase().includes(char))
+  return [...'abcdefghijklmnopqrstuvwxyz'].every(char => input.toLowerCase().includes(char))
 
-  const inputNoSpace = input.replace(/\s/g, '');
-  if(inputNoSpace.length == 0 || !inputNoSpace.match(validLetters)){
-    return false;
-  }
+  // const inputNoSpace = input.replace(/\s/g, '');
+  // if(inputNoSpace.length == 0 || !inputNoSpace.match(validLetters)){
+  //   return false;
+  // }
 
-  for(let i = 0; i < alphabet.length; i++){
-    if(!inputNoSpace.toLowerCase().includes(alphabet.charAt(i))){
-      return false;
-    }
-  }
+  // for(let i = 0; i < alphabet.length; i++){
+  //   if(!inputNoSpace.toLowerCase().includes(alphabet.charAt(i))){
+  //     return false;
+  //   }
+  // }
   
-  return true;
+  // return true;
 };

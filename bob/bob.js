@@ -5,23 +5,21 @@
 
 export const hey = (message) => {
 	const yellLetters = /[a-zA-Z]/g;
-	let result = 'Whatever.';
 	const newMessage = message.trim();
 
-	const sayNothing = newMessage.length;
 	const isQuestion = newMessage.endsWith('?');
-	const upper = newMessage === newMessage.toUpperCase();
+	const isUpper = newMessage === newMessage.toUpperCase();
 	const isYellTalks = newMessage.match(yellLetters);
 
-	if(sayNothing === 0){
-		result = 'Fine. Be that way!';
-	}else if(isQuestion && upper && isYellTalks){
-		result = 'Calm down, I know what I\'m doing!';
+	if(!newMessage){
+		return 'Fine. Be that way!';
+	}else if(isQuestion && isUpper && isYellTalks){
+		return 'Calm down, I know what I\'m doing!';
 	}else if(isQuestion){
-		result = 'Sure.';
-	}else if (upper && isYellTalks){
-		result = 'Whoa, chill out!';
+		return 'Sure.';
+	}else if (isUpper && isYellTalks){
+		return 'Whoa, chill out!';
+	}else{
+		return 'Whatever.'
 	}
-
-	return result;
 };
